@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — Tailwind v4 CSS-first `@theme`. This is the single source
+ * of truth for color, type scale, radius and container tokens. No
+ * `tailwind.config.ts` exists in this project; every utility class Tailwind
+ * generates is derived from the tokens below.
+ *
+ * Palette note (WCAG 2.1 AA, verified against relative-luminance math):
+ *   --color-accent        #C0301F  ->  5.33:1 on paper, 5.70:1 white-on-fill — body text safe
+ *   --color-accent-bright #D93A2B  ->  4.28:1 on paper — FAILS 4.5:1 body text.
+ *                                      Large text (>=24px, i.e. --text-xl+) and
+ *                                      non-text roles (icons, rules, hover states) only.
+ *   --color-highlight     #F2B705  ->  1.70:1 on paper — fill only, always with ink text
+ *                                      on top (9.46:1). Never a border, never a focus ring.
+ */
+@theme {
+  --color-paper: #FAF7F2;
+  --color-paper-sunk: #F2EDE4;
+  --color-ink: #1C1B1A;
+  --color-ink-muted: #5A5652;
+  --color-accent: #C0301F;
+  --color-accent-bright: #D93A2B;
+  --color-highlight: #F2B705;
+  --color-rule: #E4DED4; /* decorative hairline only — 1.25:1, never on a form field */
+
+  --font-display: var(--font-bricolage);
+  --font-body: var(--font-inter);
+
+  --text-2xs: 0.875rem; /* 14px — badges/labels, never prose */
+  --text-xs: 0.9375rem; /* 15px — captions, meta */
+  --text-sm: 1rem; /* 16px — nav, UI labels */
+  --text-base: 1.0625rem; /* 17px body */
+  --text-base--line-height: 1.65;
+  --text-lg: 1.25rem; /* 20px lead */
+  --text-xl: 1.5rem; /* 24px H3 — first size allowed to use accent-bright */
+  --text-2xl: clamp(1.75rem, 4vw, 2.25rem);
+  --text-3xl: clamp(2rem, 5vw, 3rem);
+  --text-display: clamp(1.75rem, 7.5vw, 4rem);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  --container-content: 72rem;
+  --container-prose: 68ch;
+
+  --space-section: clamp(3rem, 8vw, 6rem);
+
+  --tap-target: 2.75rem; /* 44px minimum interactive hit area */
+}
+
+/*
+ * Accessibility base layer. These rules are global and structural on purpose:
+ * later components inherit them instead of re-deciding contrast, focus,
+ * motion or tap-target sizing on a per-component basis.
+ */
+
+/* Root font-size stays a percentage so it scales with the visitor's own
+ * browser font-size preference. Never `html { font-size: 17px }` — a px
+ * root silently overrides a visitor's accessibility setting. */
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+/* Ink-colored focus ring. One ring color works on every surface in the
+ * palette: paper (16.09:1), accent fill (3.02:1 — thin margin above the
+ * 3:1 non-text/UI floor, re-verify if either color ever shifts), highlight
+ * fill (9.46:1). `.surface-ink` (a dark section background, introduced in
+ * a later work unit) flips the ring to paper so it still clears 3:1
+ * against ink. */
+:focus-visible {
+  outline: 2px solid var(--color-focus, var(--color-ink));
+  outline-offset: 2px;
+}
+
+.surface-ink {
+  --color-focus: var(--color-paper);
+}
+
+/* Minimum 44x44px hit area on native interactive controls. Anchor-based
+ * buttons get this from the shared `Button` component (a later work unit);
+ * this rule covers native form controls so no future component has to
+ * re-derive the number. */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  min-height: var(--tap-target);
+  min-width: var(--tap-target);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Paper noise texture — a 32x32px, 479-byte, 5-color indexed PNG tiled at 3%
+ * opacity behind/over the page as a `body::before` pseudo-element. Chosen
+ * over a live SVG `feTurbulence` filter because a filter repaints on every
+ * scroll frame on low-end Android; a cached raster tile costs nothing.
+ * `pointer-events: none` keeps it out of the interaction layer, and it
+ * carries no content so it has nothing to expose to assistive tech.
+ * Disabled entirely under `prefers-contrast: more`.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAD1BMVEXR0dFfX1+QkJAtLS2vr6/xaBkTAAABi0lEQVQ4yzWTCw7DMAxCMXD/M0+PdFPVdIk/GIh0p/PFzeUcn+8S35WjaBs97bxKt3Gn6txavvpOi7J5cRy+ktpKzJqKSLutT8md1Yt0OWqfcwoBOtlqzC4AySygzt853a45g1KyAJFzowUWoJHJr9e5dK5DaijUpMpC5UpSOWEKHhCeLtoLCjYbX3nMUAyuanIHxwqzByY1xpTeMmQPNwvkJqUinB7ANqTsXmwjiDYsQ1LxHlZEyOta0ZjqCRMJVJ8+1jQ7Si0ZNJpyRkV6jFXR4e4pDfp7mVoOaKdAR2qEeGxcGM5nmu5L/MvgMMTZkXXp6WlIYsM87YBeCQNcd/CE1rB72qX4wywft3TFAO3UfmQPkf/WgxLmeyp75HSGBrZwcwIw9IJszgFunmbMP0LPGAeVVi+Cag+oFa8qM1B2WAArpx0tEcXwCLb7kD8NdmOyq2fJY52ZYXiWKZs4a84pd2g6AX/UYdcPtGcePDZn7RdM63cVgPw50cVgkNFpTjimYoKnzwvsZPwBdlAHa6DGA6kAAAAASUVORK5CYII=");
+  background-repeat: repeat;
+  background-size: 32px 32px;
+}
+
+@media (prefers-contrast: more) {
+  body::before {
+    display: none;
+  }
+}
