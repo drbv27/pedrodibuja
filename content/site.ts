@@ -31,6 +31,15 @@ export interface SiteContent {
     /** Deck section 0, item 4. */
     drawingCount: number | null;
   };
+  family: {
+    /**
+     * Deck section 4.2, Bloque 5 — family members Pedro is especially
+     * tender with. Unresolved (`[[COMPLETAR: nombres]]` in the deck); stays
+     * `null` so the sentence that names them degrades to a natural reading
+     * without them instead of ever rendering a visible placeholder.
+     */
+    tenderNames: string[] | null;
+  };
   /** Deck section 0, item 6 — empty until at least one link exists. */
   social: SocialLink[];
   flags: {
@@ -59,6 +68,11 @@ export const site: SiteContent = {
     yearsDrawing: null,
     // TODO: Diego to provide approximate drawing count (deck section 0, item 4).
     drawingCount: null,
+  },
+  family: {
+    // TODO: Diego to provide the family members' names Pedro is especially
+    // tender with (deck section 4.2, Bloque 5: "[[COMPLETAR: nombres]]").
+    tenderNames: null,
   },
   // TODO: Diego to provide social links (deck section 0, item 6).
   social: [],

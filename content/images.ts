@@ -94,7 +94,8 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
     ratio: "3/4",
     tip: 3,
     alt: "Retrato de Pedro sonriendo, con la cámara a la altura de sus ojos, en un espacio luminoso.",
-    caption: "Pedro.",
+    caption:
+      "Pedro, mirando a cámara a la altura de sus ojos — nunca en contrapicado, nunca centrando la silla de ruedas.",
     src: null,
   },
   "historia-boccia": {
@@ -102,7 +103,8 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
     ratio: "16/9",
     tip: 6,
     alt: "Pedro en plena jugada de boccia, concentrado en el momento del lanzamiento.",
-    caption: "Pedro jugando boccia, un martes cualquiera.",
+    caption:
+      "El lanzamiento o la concentración: acción, no la foto posada con la medalla.",
     src: null,
   },
   "como-dibuja-hands": {
