@@ -57,6 +57,34 @@ export interface SiteContent {
   };
   /** Deck section 0, item 6 — empty until at least one link exists. */
   social: SocialLink[];
+  /**
+   * Deck section 4.5, Bloques 2 and 4 — commission/support details behind
+   * the still-unresolved `flags.commerce` blocks. Kept nullable so those
+   * blocks compile and render a natural degraded sentence today, and light
+   * up with real values the moment Diego resolves them — no code change
+   * either way, only this data.
+   */
+  commerce: {
+    /** Bloque 2 `[[COMPLETAR]]` — usual commission size. */
+    commissionSize: string | null;
+    /** Bloque 2 `[[COMPLETAR]]` — approximate lead time. */
+    commissionLeadTime: string | null;
+    /** Bloque 2 `[[COMPLETAR]]` — price. */
+    commissionPrice: string | null;
+    /** Bloque 2 `[[COMPLETAR: cobertura]]` — shipping coverage. */
+    commissionShipping: string | null;
+    /**
+     * Bloque 4 `[[COMPLETAR: enlace de pago]]`. While unresolved, the
+     * "Apoyar" CTA degrades to `/contacto` instead of a dead link.
+     */
+    supportPaymentLink: string | null;
+    /**
+     * Transparency block `[[COMPLETAR: materiales, participación en boccia,
+     * transporte, etc.]]`. While unresolved, the sentence degrades to a
+     * still-true general reading rather than a visible placeholder.
+     */
+    transparencyUse: string | null;
+  };
   flags: {
     /**
      * Explicit v1 decision (proposal + design D5): `/apoya` ships in a
@@ -102,6 +130,20 @@ export const site: SiteContent = {
   },
   // TODO: Diego to provide social links (deck section 0, item 6).
   social: [],
+  commerce: {
+    // TODO: Diego to provide commission size, lead time, price and shipping
+    // coverage (deck section 4.5, Bloque 2) before activating `flags.commerce`.
+    commissionSize: null,
+    commissionLeadTime: null,
+    commissionPrice: null,
+    commissionShipping: null,
+    // TODO: Diego to provide a payment link (deck section 4.5, Bloque 4)
+    // before activating `flags.commerce`.
+    supportPaymentLink: null,
+    // TODO: Diego to provide the transparency detail (deck section 4.5,
+    // transparency block) before activating `flags.commerce`.
+    transparencyUse: null,
+  },
   flags: {
     commerce: false,
   },
