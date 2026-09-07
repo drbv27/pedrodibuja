@@ -17,7 +17,19 @@ export type ImageSlotId =
   | "home-featured-6"
   | "historia-portrait"
   | "historia-boccia"
-  | "como-dibuja-hands";
+  | "como-dibuja-hands"
+  | "galeria-placeholder-1"
+  | "galeria-placeholder-2"
+  | "galeria-placeholder-3"
+  | "galeria-placeholder-4"
+  | "galeria-placeholder-5"
+  | "galeria-placeholder-6"
+  | "galeria-placeholder-7"
+  | "galeria-placeholder-8"
+  | "galeria-placeholder-9"
+  | "galeria-placeholder-10"
+  | "galeria-placeholder-11"
+  | "galeria-placeholder-12";
 
 export interface ImageSlot {
   id: ImageSlotId;
@@ -115,6 +127,108 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
     caption: "Las manos de Pedro, en pleno proceso.",
     src: null,
   },
+  // Deck tip 9: a gallery grid only looks professional when every tile
+  // shares one aspect ratio (design D3/D8 — /galeria ships this 12-tile
+  // placeholder grid alongside the deck's empty-state line while
+  // `content/artworks.ts` stays empty). Each caption names its own position
+  // so the twelve tiles don't read as one identical line repeated to a
+  // screen reader.
+  "galeria-placeholder-1": {
+    id: "galeria-placeholder-1",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 1 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-2": {
+    id: "galeria-placeholder-2",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 2 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-3": {
+    id: "galeria-placeholder-3",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 3 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-4": {
+    id: "galeria-placeholder-4",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 4 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-5": {
+    id: "galeria-placeholder-5",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 5 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-6": {
+    id: "galeria-placeholder-6",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 6 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-7": {
+    id: "galeria-placeholder-7",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 7 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-8": {
+    id: "galeria-placeholder-8",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 8 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-9": {
+    id: "galeria-placeholder-9",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 9 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-10": {
+    id: "galeria-placeholder-10",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 10 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-11": {
+    id: "galeria-placeholder-11",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 11 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
+  "galeria-placeholder-12": {
+    id: "galeria-placeholder-12",
+    ratio: "1/1",
+    tip: 9,
+    alt: "Dibujo de un carro hecho a mano por Pedro, pendiente de publicar.",
+    caption: "Espacio 12 de 12 — pronto, un nuevo dibujo de Pedro.",
+    src: null,
+  },
 };
 
 export const HOME_FEATURED_IMAGE_IDS: ImageSlotId[] = [
@@ -124,4 +238,19 @@ export const HOME_FEATURED_IMAGE_IDS: ImageSlotId[] = [
   "home-featured-4",
   "home-featured-5",
   "home-featured-6",
+];
+
+export const GALLERY_PLACEHOLDER_IMAGE_IDS: ImageSlotId[] = [
+  "galeria-placeholder-1",
+  "galeria-placeholder-2",
+  "galeria-placeholder-3",
+  "galeria-placeholder-4",
+  "galeria-placeholder-5",
+  "galeria-placeholder-6",
+  "galeria-placeholder-7",
+  "galeria-placeholder-8",
+  "galeria-placeholder-9",
+  "galeria-placeholder-10",
+  "galeria-placeholder-11",
+  "galeria-placeholder-12",
 ];

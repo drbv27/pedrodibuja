@@ -40,6 +40,21 @@ export interface SiteContent {
      */
     tenderNames: string[] | null;
   };
+  materials: {
+    /**
+     * Deck section 4.4 "Los materiales" — the usual paper type and size
+     * (e.g. "tipo carta, 21,5 × 28 cm"). Still unresolved per Engram id 511;
+     * stays `null` so the materials list degrades to "Papel blanco." instead
+     * of ever rendering the deck's `[[COMPLETAR: tipo y tamaño habitual]]`.
+     */
+    paperType: string | null;
+    /**
+     * Deck section 4.4 — how long a full drawing takes (e.g. "unas tres
+     * semanas"). Still unresolved per Engram id 511; stays `null` so the
+     * sentence degrades to a natural reading without a specific duration.
+     */
+    drawingDuration: string | null;
+  };
   /** Deck section 0, item 6 — empty until at least one link exists. */
   social: SocialLink[];
   flags: {
@@ -76,6 +91,14 @@ export const site: SiteContent = {
     // TODO: Diego to provide the family members' names Pedro is especially
     // tender with (deck section 4.2, Bloque 5: "[[COMPLETAR: nombres]]").
     tenderNames: null,
+  },
+  materials: {
+    // TODO: Diego to provide the usual paper type and size (deck section
+    // 4.4: "[[COMPLETAR: tipo y tamaño habitual]]").
+    paperType: null,
+    // TODO: Diego to provide how long a full drawing takes (deck section
+    // 4.4: "[[COMPLETAR: horas/días]]").
+    drawingDuration: null,
   },
   // TODO: Diego to provide social links (deck section 0, item 6).
   social: [],
