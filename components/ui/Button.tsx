@@ -56,8 +56,16 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
 
 // Minimum 44x44 hit area (accessibility-baseline: touch target), regardless
 // of variant or whether this renders as a link or a native button.
+// `whitespace-nowrap` + `shrink-0` fix a clipping bug found on the header's
+// Contacto button: as a flex sibling of the nav's `<ul>`, the button was
+// compressed below its own label's width once the row ran out of space,
+// and `white-space: normal` let the compressed box clip "Contacto" instead
+// of the box sizing itself from the label plus padding. Fixed once here,
+// not per caller, so every `Button` — CTA pairs, gallery/support CTAs, the
+// contact form submit — is immune to the same failure mode in any flex
+// container, not just the ones that currently expose it.
 const BASE_CLASSES =
-  "inline-flex min-h-[var(--tap-target)] min-w-[var(--tap-target)] items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-colors duration-150";
+  "inline-flex min-h-[var(--tap-target)] min-w-[var(--tap-target)] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 text-sm font-medium transition-colors duration-150";
 
 export function Button(props: ButtonProps) {
   const { variant = "primary", className, children, trackSelectContent, onClick } = props;
