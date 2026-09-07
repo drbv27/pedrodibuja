@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-og.mjs",
+    "build": "node scripts/launch-guard.mjs && node scripts/check-og.mjs",
     "start": "next start",
     "lint": "eslint",
-    "check-og": "node scripts/check-og.mjs"
+    "check-og": "node scripts/check-og.mjs",
+    "launch-guard": "node scripts/launch-guard.mjs"
   },
   "dependencies": {
+    "@next/third-parties": "16.3.4",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",

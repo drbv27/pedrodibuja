@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 import { serverEnv } from "@/lib/env";
-import { validateContact, type ContactField } from "@/lib/validation";
+import { validateContact, type ContactField, type ContactMotivo } from "@/lib/validation";
 import { CONTACT_ERROR_COPY, HONEYPOT_FIELD } from "@/content/copy/contacto";
 
 // `ContactState`'s `error` branch carries `typeof CONTACT_ERROR_COPY`
@@ -11,9 +11,16 @@ import { CONTACT_ERROR_COPY, HONEYPOT_FIELD } from "@/content/copy/contacto";
 // without a visible, deliberate type assertion. Type-only export: erased
 // before runtime, so it does not violate the "use server" file's
 // async-function-only export rule.
+//
+// `success.motivo` (WU9, spec `analytics-and-cookie-notice`): `null` only
+// on the honeypot's spoofed success below, so the GA4 `generate_lead`
+// conversion (the site's primary one, deck slide 10) fires on a real
+// delivered message only — never on the bot-fooling path, and never on a
+// validation failure or a delivery error, both of which are different
+// `ContactState` variants entirely.
 export type ContactState =
   | { status: "idle" }
-  | { status: "success" }
+  | { status: "success"; motivo: ContactMotivo | null }
   | { status: "invalid"; fieldErrors: Partial<Record<ContactField, string>> }
   | { status: "error"; message: typeof CONTACT_ERROR_COPY };
 
@@ -35,7 +42,10 @@ export async function sendContactMessage(
   if (honeypot.trim().length > 0) {
     // Bot submission (spec scenario): no Resend call, no log — silently
     // drop and report success to the visitor exactly as a real one.
-    return { status: "success" };
+    // `motivo: null` keeps this indistinguishable from a real success to
+    // the visitor while still telling the client not to fire the GA4
+    // `generate_lead` conversion for it.
+    return { status: "success", motivo: null };
   }
 
   const result = validateContact({
@@ -82,7 +92,7 @@ export async function sendContactMessage(
       return { status: "error", message: CONTACT_ERROR_COPY };
     }
 
-    return { status: "success" };
+    return { status: "success", motivo: motivo as ContactMotivo };
   } catch (error) {
     console.error("[contacto] Resend send threw", error);
     return { status: "error", message: CONTACT_ERROR_COPY };

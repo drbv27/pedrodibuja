@@ -43,6 +43,18 @@ function resolveSiteUrl(): string {
   return rawValue ? normalizeSiteUrl(rawValue) : DEFAULT_SITE_URL;
 }
 
+// GA4 measurement ID (Engram id 509). `null`, not `""`, when unset — the
+// root layout treats `null` as "do not render `<GoogleAnalytics>` at all",
+// so a local `npm run dev` never sends data to the production property
+// (deck slide 9's in-class demonstration depends on that separation).
+// `NEXT_PUBLIC_*` vars are inlined by Next.js at build time, so this stays
+// a pure, deterministic value and never turns a route request-time.
+function resolveGaId(): string | null {
+  const rawValue = process.env.NEXT_PUBLIC_GA_ID?.trim();
+  return rawValue && rawValue.length > 0 ? rawValue : null;
+}
+
 export const publicEnv = {
   siteUrl: resolveSiteUrl(),
+  gaId: resolveGaId(),
 };

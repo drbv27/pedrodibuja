@@ -9,3 +9,13 @@
 // here rather than risking two different wordings drifting apart.
 export const FAMILY_INTERPRETATION_NOTE =
   "Pedro se comunica con gestos, miradas y dibujos. Las frases que aparecen en este sitio entre comillas son la interpretación de su familia.";
+
+// Deck section 5, "Banner de aviso de cookies". Proposal question 2's
+// resolved decision (Engram id 502): informational, not a consent gate —
+// this notice acknowledges, it does not ask permission, so `CookieNotice`
+// never gates `<GoogleAnalytics>` in the root layout.
+export const COOKIE_NOTICE = {
+  message:
+    "Usamos cookies solo para saber cuánta gente está viendo la obra de Pedro. Nada más.",
+  dismissLabel: "Entendido",
+};

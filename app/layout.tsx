@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SkipLink } from "@/components/chrome/SkipLink";
 import { SiteHeader } from "@/components/chrome/SiteHeader";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { JsonLd } from "@/components/chrome/JsonLd";
+import { CookieNotice } from "@/components/chrome/CookieNotice";
 import { publicEnv } from "@/lib/env";
 import { ROUTE_METADATA } from "@/lib/seo";
 import { buildPersonJsonLd, serializePersonJsonLd } from "@/lib/jsonld";
@@ -49,6 +51,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <SiteFooter />
         <JsonLd data={personJsonLd} />
+        <CookieNotice />
+        {/*
+          GA4 (Engram id 508/509, spec `analytics-and-cookie-notice`). Loads
+          unconditionally — not gated by `CookieNotice` (proposal question
+          2's resolved decision) — but only when `publicEnv.gaId` is set.
+          `NEXT_PUBLIC_GA_ID` is deliberately absent from local development
+          so `npm run dev` never pollutes the production GA4 property (deck
+          slide 9's in-class demonstration depends on that separation).
+          Never a hand-pasted `gtag.js` snippet alongside this — that would
+          double every count.
+        */}
+        {publicEnv.gaId ? <GoogleAnalytics gaId={publicEnv.gaId} /> : null}
       </body>
     </html>
   );

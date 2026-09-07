@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { reportShare, type ShareMethod } from "@/lib/analytics";
 
 // Deck section 4.5, Bloque 1 — "Compartir la galería". Proposal question 2
 // (confirmed): native Web Share API when available, WhatsApp/X/Facebook
@@ -8,19 +9,6 @@ import { useSyncExternalStore } from "react";
 // would directly contradict the site's own informational-only cookie
 // notice. This is the one client leaf on `/apoya`; the rest of the route
 // stays a server component so it still prerenders static.
-
-type ShareMethod = "native" | "whatsapp" | "x" | "facebook";
-
-/**
- * WU9 wires the real GA4 event call here. Every share path below — native
- * and all three fallback links — calls this one function first, so adding
- * the analytics call later touches exactly this one place.
- */
-function reportShareEvent(method: ShareMethod) {
-  // Intentionally empty in this work unit; WU9 wires the real GA4 event
-  // call here, keyed on `method`.
-  void method;
-}
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://pedrodibuja.vercel.app";
 const GALLERY_URL = `${SITE_URL}/galeria`;
@@ -87,7 +75,7 @@ export function ShareControls() {
   );
 
   async function handleNativeShare() {
-    reportShareEvent("native");
+    reportShare("native");
     try {
       await navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: GALLERY_URL });
     } catch {
@@ -112,7 +100,7 @@ export function ShareControls() {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => reportShareEvent(link.method)}
+          onClick={() => reportShare(link.method)}
           className={FALLBACK_LINK_CLASSES}
         >
           Compartir por {link.label}

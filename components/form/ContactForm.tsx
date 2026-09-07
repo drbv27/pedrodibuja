@@ -7,19 +7,11 @@ import { Button } from "@/components/ui/Button";
 import { sendContactMessage, type ContactState } from "@/app/contacto/actions";
 import { CONTACT_MOTIVOS, CONTACT_MAX_LENGTHS, type ContactField } from "@/lib/validation";
 import { contacto, HONEYPOT_FIELD } from "@/content/copy/contacto";
+import { reportGenerateLead } from "@/lib/analytics";
 
 const INITIAL_STATE: ContactState = { status: "idle" };
 
 const MOTIVO_OPTIONS = CONTACT_MOTIVOS.map((motivo) => ({ value: motivo, label: motivo }));
-
-/**
- * WU9 wires the real GA4 conversion event here. The success path funnels
- * through this one function, so adding the analytics call later touches
- * exactly this one place (mirrors `ShareControls`' `reportShareEvent`).
- */
-function reportContactSuccessEvent() {
-  // Intentionally empty in this work unit.
-}
 
 /**
  * Progressive-enhancement contact form (design D7, spec `contact-messaging`).
@@ -37,8 +29,11 @@ export function ContactForm() {
   useEffect(() => {
     if (state.status === "idle") return;
     statusRef.current?.focus();
-    if (state.status === "success") {
-      reportContactSuccessEvent();
+    // Site's primary conversion (deck slide 10). `state.motivo` is `null`
+    // only on the honeypot's spoofed success (`app/contacto/actions.ts`) —
+    // that path never reaches GA4 as a real lead.
+    if (state.status === "success" && state.motivo !== null) {
+      reportGenerateLead(state.motivo);
     }
   }, [state]);
 

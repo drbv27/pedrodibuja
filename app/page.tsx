@@ -34,6 +34,7 @@ export default function Home() {
             <CtaPair
               primary={home.hero.primaryCta}
               secondary={home.hero.secondaryCta}
+              primaryTrackSelectContent={{ itemId: "home-hero-primary" }}
             />
           </div>
           <MediaSlot slot={IMAGE_SLOTS["home-hero"]} />
@@ -65,7 +66,11 @@ export default function Home() {
           ))}
         </div>
         <div className="mt-8">
-          <Button href={home.featuredGallery.cta.href} variant="primary">
+          <Button
+            href={home.featuredGallery.cta.href}
+            variant="primary"
+            trackSelectContent={{ itemId: "home-featured-gallery-cta" }}
+          >
             {home.featuredGallery.cta.label}
           </Button>
         </div>
@@ -111,6 +116,7 @@ export default function Home() {
           <CtaPair
             primary={home.closing.primaryCta}
             secondary={home.closing.secondaryCta}
+            primaryTrackSelectContent={{ itemId: "home-closing-primary-cta" }}
           />
         </div>
       </Section>
