@@ -116,17 +116,32 @@ export const site: SiteContent = {
     drawingCount: 300,
   },
   family: {
-    // TODO: Diego to provide the family members' names Pedro is especially
-    // tender with (deck section 4.2, Bloque 5: "[[COMPLETAR: nombres]]").
-    tenderNames: null,
+    /**
+     * Written from Yamile's first person, because she narrates
+     * `/su-historia` — she cannot refer to herself in the third person, and
+     * Lucelly and Laura are her mother and sister too, not only Pedro's.
+     *
+     * The niece is deliberately unnamed. She is Yamile's daughter, a minor,
+     * and this is a public page built to rank: "mi hija" is warmer than her
+     * name and does not attach it to an indexed page for good.
+     */
+    tenderNames: [
+      "nuestra mamá Lucelly",
+      "nuestra hermana Laura",
+      "mi hija",
+      "conmigo",
+    ],
   },
   materials: {
-    // TODO: Diego to provide the usual paper type and size (deck section
-    // 4.4: "[[COMPLETAR: tipo y tamaño habitual]]").
-    paperType: null,
-    // TODO: Diego to provide how long a full drawing takes (deck section
-    // 4.4: "[[COMPLETAR: horas/días]]").
-    drawingDuration: null,
+    /**
+     * Type only, no dimensions. The family knows he works on drawing-block
+     * paper but is not sure of the size, and a page about someone's
+     * technique is the worst place to publish a guessed measurement — the
+     * one audience that would notice is other people who draw. Append the
+     * size here once somebody measures a sheet.
+     */
+    paperType: "de los blocks de dibujo",
+    drawingDuration: "entre uno y dos días, según el detalle",
   },
   // TODO: Diego to provide social links (deck section 0, item 6).
   social: [],
