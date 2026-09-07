@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { Button } from "@/components/ui/Button";
 import { reportShare, type ShareMethod } from "@/lib/analytics";
 
 // Deck section 4.5, Bloque 1 — "Compartir la galería". Proposal question 2
@@ -16,14 +17,14 @@ const SHARE_TITLE = "Pedro Dibuja";
 const SHARE_TEXT =
   "Mira los dibujos de carros que hace Pedro, a mano, a lápiz y color.";
 
-// Same visual treatment as `Button`'s primary/secondary variants, kept local
-// rather than extending that component's props: `Button`'s link branch
-// renders `next/link`, which is the wrong tool for an external share-intent
-// URL opened in a new tab, and its button branch exposes no click handler.
-const NATIVE_BUTTON_CLASSES =
-  "inline-flex min-h-[var(--tap-target)] min-w-[var(--tap-target)] items-center justify-center gap-2 rounded-md bg-accent px-4 text-sm font-medium text-paper transition-colors duration-150 hover:bg-ink";
-const FALLBACK_LINK_CLASSES =
-  "inline-flex min-h-[var(--tap-target)] min-w-[var(--tap-target)] items-center justify-center gap-2 rounded-md border border-ink bg-transparent px-4 text-sm font-medium text-ink transition-colors duration-150 hover:bg-paper-sunk";
+// These controls used to carry their own copies of `Button`'s primary and
+// secondary classes. That duplication is gone: this file now owns no styling
+// decision at all, so contrast, focus ring and the 44px target come from one
+// place. It had two stated reasons, and neither survives — `Button` grew an
+// `external` prop for destinations this app does not own, and its button
+// branch grew an `onClick`. Duplicating those classes had already cost this
+// project one real contrast bug elsewhere (a hover state measured at 4.28:1
+// against a 4.5:1 floor), which is why the copies are not worth keeping.
 
 const FALLBACK_LINKS: Array<{
   method: Extract<ShareMethod, "whatsapp" | "x" | "facebook">;
@@ -86,25 +87,24 @@ export function ShareControls() {
 
   if (hasNativeShare) {
     return (
-      <button type="button" onClick={handleNativeShare} className={NATIVE_BUTTON_CLASSES}>
+      <Button type="button" onClick={handleNativeShare}>
         Compartir la galería
-      </button>
+      </Button>
     );
   }
 
   return (
     <div className="flex flex-wrap gap-4" role="group" aria-label="Compartir la galería">
       {FALLBACK_LINKS.map((link) => (
-        <a
+        <Button
           key={link.method}
           href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          external
+          variant="secondary"
           onClick={() => reportShare(link.method)}
-          className={FALLBACK_LINK_CLASSES}
         >
           Compartir por {link.label}
-        </a>
+        </Button>
       ))}
     </div>
   );

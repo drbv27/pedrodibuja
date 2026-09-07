@@ -39,6 +39,14 @@ interface ButtonBaseProps {
 interface ButtonAsLink extends ButtonBaseProps {
   href: string;
   type?: undefined;
+  /**
+   * Render a plain `<a target="_blank" rel="noopener noreferrer">` instead of
+   * `next/link`. `next/link` prefetches and client-side navigates, which is
+   * wrong for a destination this app does not own — a share intent, a social
+   * profile, a press article. `rel="noopener"` is what keeps the opened tab
+   * from reaching back into `window.opener`.
+   */
+  external?: boolean;
 }
 
 interface ButtonAsButton extends ButtonBaseProps {
@@ -84,6 +92,20 @@ export function Button(props: ButtonProps) {
       : undefined;
 
   if (props.href) {
+    if (props.external) {
+      return (
+        <a
+          href={props.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes}
+          onClick={handleClick}
+        >
+          {children}
+        </a>
+      );
+    }
+
     return (
       <Link href={props.href} className={classes} onClick={handleClick}>
         {children}
