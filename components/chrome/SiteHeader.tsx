@@ -34,8 +34,14 @@ export function SiteHeader() {
          * carries the link's entire accessible name — no stacked
          * visually-hidden label. `min-h-[var(--tap-target)]` keeps the
          * link's own hit area at the site's 44x44px floor even though the
-         * visible mark itself renders smaller (`h-9`, capped to keep the
-         * header compact at a 360px viewport). Explicit `width`/`height`
+         * visible mark itself renders smaller. The mark scales with the
+         * viewport: at 36px it keeps the header compact on a 360px phone,
+         * but on a desktop header it measured 56px wide — narrower than
+         * the word "Inicio" in the nav beside it, which reads as an
+         * afterthought rather than the site's mark. It grows only from
+         * `lg` up, because between `md` and `lg` the six nav items already
+         * use most of the row and a wider logo would push them to wrap.
+         * Explicit `width`/`height`
          * (the source's own 720x466) reserve the image's box so it causes
          * no layout shift; `priority` because it is above the fold on
          * every route.
@@ -50,7 +56,7 @@ export function SiteHeader() {
             width={720}
             height={466}
             priority
-            className="h-9 w-auto"
+            className="h-9 w-auto lg:h-14 xl:h-16"
           />
         </Link>
         <nav aria-label="Principal" className="hidden flex-1 items-center justify-end gap-4 md:flex">
