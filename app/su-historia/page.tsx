@@ -6,6 +6,9 @@ import { MediaSlot } from "@/components/media/MediaSlot";
 import { suHistoria } from "@/content/copy/su-historia";
 import { IMAGE_SLOTS } from "@/content/images";
 import { FAMILY_INTERPRETATION_NOTE } from "@/content/copy/shared";
+import { buildRouteMetadata } from "@/lib/seo";
+
+export const metadata = buildRouteMetadata("su-historia");
 
 // Deck section 4.2 — "Su historia" page. Narrated in the first person by
 // Yamile, Pedro's sister (Engram id 510): Diego builds and maintains the

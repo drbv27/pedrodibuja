@@ -6,6 +6,9 @@ import { InfoList } from "@/components/ui/InfoList";
 import { ShareControls } from "@/components/ui/ShareControls";
 import { GatedBlock } from "@/components/flags/GatedBlock";
 import { apoya } from "@/content/copy/apoya";
+import { buildRouteMetadata } from "@/lib/seo";
+
+export const metadata = buildRouteMetadata("apoya");
 
 // Deck section 4.5 — "Apoya" page. Ships from day one in a soft-launch
 // state (deck's own strategic note): Bloques 2-4 and the transparency

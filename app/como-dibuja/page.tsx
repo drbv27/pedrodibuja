@@ -7,6 +7,9 @@ import { InfoList } from "@/components/ui/InfoList";
 import { StepList } from "@/components/ui/StepList";
 import { comoDibuja } from "@/content/copy/como-dibuja";
 import { IMAGE_SLOTS } from "@/content/images";
+import { buildRouteMetadata } from "@/lib/seo";
+
+export const metadata = buildRouteMetadata("como-dibuja");
 
 // Deck section 4.4 — "Cómo dibuja" page. The deck itself calls this the
 // smartest SEO play on the site: it is content-complete without a single

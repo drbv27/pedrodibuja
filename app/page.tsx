@@ -8,6 +8,9 @@ import { PullQuote } from "@/components/ui/PullQuote";
 import { MediaSlot } from "@/components/media/MediaSlot";
 import { home } from "@/content/copy/home";
 import { IMAGE_SLOTS, HOME_FEATURED_IMAGE_IDS } from "@/content/images";
+import { buildRouteMetadata } from "@/lib/seo";
+
+export const metadata = buildRouteMetadata("home");
 
 // Deck section 4.1 — home page. The hero H1 and subtitle are Diego's
 // explicit merge decision, not the deck's un-merged draft; every other

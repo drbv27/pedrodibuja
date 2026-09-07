@@ -6,6 +6,9 @@ import { GalleryGrid } from "@/components/media/GalleryGrid";
 import { galeria } from "@/content/copy/galeria";
 import { IMAGE_SLOTS, GALLERY_PLACEHOLDER_IMAGE_IDS } from "@/content/images";
 import { artworks } from "@/content/artworks";
+import { buildRouteMetadata } from "@/lib/seo";
+
+export const metadata = buildRouteMetadata("galeria");
 
 // Deck section 4.3 — "Galería" page. Resolved product decision (proposal
 // question 3): v1 ships the empty-state line together with the placeholder

@@ -2,6 +2,9 @@ import { Section } from "@/components/layout/Section";
 import { Prose } from "@/components/layout/Prose";
 import { ContactForm } from "@/components/form/ContactForm";
 import { contacto } from "@/content/copy/contacto";
+import { buildRouteMetadata } from "@/lib/seo";
+
+export const metadata = buildRouteMetadata("contacto");
 
 // Deck section 4.6 — "Contacto" page. The deck itself defines only one page
 // heading (the H1); "Contacto directo" adds one `<h2>` beyond the deck's

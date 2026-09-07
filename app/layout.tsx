@@ -3,6 +3,10 @@ import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { SkipLink } from "@/components/chrome/SkipLink";
 import { SiteHeader } from "@/components/chrome/SiteHeader";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { JsonLd } from "@/components/chrome/JsonLd";
+import { publicEnv } from "@/lib/env";
+import { ROUTE_METADATA } from "@/lib/seo";
+import { buildPersonJsonLd, serializePersonJsonLd } from "@/lib/jsonld";
 import "./globals.css";
 
 const bricolageGrotesque = Bricolage_Grotesque({
@@ -17,10 +21,19 @@ const inter = Inter({
   display: "swap",
 });
 
+// Root-level fallback only. `metadataBase` is the one thing every route
+// needs from here (it resolves each page's own relative canonical/OG URLs
+// into absolute ones); title/description are the home page's own values as
+// a sane default for any route that somehow renders without exporting its
+// own `metadata` (spec `seo-metadata`: single source of truth for absolute
+// URLs is `NEXT_PUBLIC_SITE_URL` via `publicEnv.siteUrl`).
 export const metadata: Metadata = {
-  title: "Pedro Dibuja",
-  description: "Pedro Dibuja",
+  metadataBase: new URL(publicEnv.siteUrl),
+  title: ROUTE_METADATA.home.title,
+  description: ROUTE_METADATA.home.description,
 };
+
+const personJsonLd = serializePersonJsonLd(buildPersonJsonLd());
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -35,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <SiteFooter />
+        <JsonLd data={personJsonLd} />
       </body>
     </html>
   );
