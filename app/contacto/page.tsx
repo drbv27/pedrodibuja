@@ -38,7 +38,12 @@ export default function ContactoPage() {
               <dt className="font-medium text-ink">{row.label}:</dt>
               <dd>
                 {row.href ? (
-                  <a href={row.href} className="text-accent underline hover:text-ink">
+                  <a
+                    href={row.href}
+                    className="text-accent underline hover:text-ink"
+                    target={row.external ? "_blank" : undefined}
+                    rel={row.external ? "noopener noreferrer" : undefined}
+                  >
                     {row.display}
                   </a>
                 ) : (

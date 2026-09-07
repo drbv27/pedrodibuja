@@ -7,8 +7,15 @@ import { StatGrid } from "@/components/ui/StatGrid";
 import { PullQuote } from "@/components/ui/PullQuote";
 import { MediaSlot } from "@/components/media/MediaSlot";
 import { home } from "@/content/copy/home";
-import { IMAGE_SLOTS, HOME_FEATURED_IMAGE_IDS } from "@/content/images";
+import { IMAGE_SLOTS } from "@/content/images";
+import { artworks } from "@/content/artworks";
 import { buildRouteMetadata } from "@/lib/seo";
+
+// Deck tip 5: the best work leads, top-left. `artworks` is already ordered
+// with `obra-01` (the Colanta tanker) and `obra-02` first — the two
+// highest-resolution originals in this handoff — so featuring it in array
+// order, with no re-sort, already satisfies that rule.
+const featuredArtworks = artworks.filter((artwork) => artwork.featured);
 
 export const metadata = buildRouteMetadata("home");
 
@@ -61,9 +68,9 @@ export default function Home() {
           support={home.featuredGallery.support}
         />
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
-          {HOME_FEATURED_IMAGE_IDS.map((slotId) => (
-            <MediaSlot key={slotId} slot={IMAGE_SLOTS[slotId]} />
-          ))}
+          {featuredArtworks.map((artwork) =>
+            artwork.image ? <MediaSlot key={artwork.slug} slot={artwork.image} /> : null,
+          )}
         </div>
         <div className="mt-8">
           <Button

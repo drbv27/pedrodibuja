@@ -4,21 +4,27 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { GalleryGrid } from "@/components/media/GalleryGrid";
 import { galeria } from "@/content/copy/galeria";
-import { IMAGE_SLOTS, GALLERY_PLACEHOLDER_IMAGE_IDS } from "@/content/images";
+import type { ImageSlot } from "@/content/images";
 import { artworks } from "@/content/artworks";
 import { buildRouteMetadata } from "@/lib/seo";
 
 export const metadata = buildRouteMetadata("galeria");
 
+function hasImage(slot: ImageSlot | null): slot is ImageSlot {
+  return slot !== null;
+}
+
 // Deck section 4.3 — "Galería" page. Resolved product decision (proposal
-// question 3): v1 ships the empty-state line together with the placeholder
-// grid, never either alone, and with no filter row (a control that filters
-// nothing is worse than no control).
+// question 3): the empty-state line and the tile grid were built to never
+// render either alone — that guard now does double duty. This work unit
+// wired six real artworks, so `hasArtworks` is `true`, the empty-state line
+// stays out of the DOM (it would no longer read honestly next to real
+// work), and the grid renders those six photographs instead of placeholders.
+// The guard itself is untouched: a future artwork-free state would still
+// show the honest empty-state line.
 export default function GaleriaPage() {
-  // `content/artworks.ts` is empty in v1 (design D3), so this always renders
-  // the deck's empty-state lead-in above the twelve-tile placeholder grid.
   const hasArtworks = artworks.length > 0;
-  const placeholderSlots = GALLERY_PLACEHOLDER_IMAGE_IDS.map((id) => IMAGE_SLOTS[id]);
+  const gallerySlots = artworks.map((artwork) => artwork.image).filter(hasImage);
 
   return (
     <>
@@ -37,7 +43,7 @@ export default function GaleriaPage() {
         {!hasArtworks ? (
           <p className="max-w-prose text-ink">{galeria.emptyState}</p>
         ) : null}
-        <GalleryGrid slots={placeholderSlots} className="mt-8" />
+        <GalleryGrid slots={gallerySlots} className="mt-8" />
       </Section>
 
       {/* Cierre */}

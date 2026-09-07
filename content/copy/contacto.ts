@@ -6,8 +6,9 @@
 // de Pedro — never Diego. Contact data confirmed per Engram id 511:
 // `site.contact.whatsapp` stores E.164 (`+573217915232`) so it can be used
 // directly as a `wa.me` link target; only a formatted version is ever
-// rendered, never that raw string. `site.contact.instagram` is `null` — no
-// Instagram row is even attempted here.
+// rendered, never that raw string. `site.contact.instagram` now holds the
+// confirmed handle, so its row below renders like `correo`/`whatsapp` —
+// present only when the underlying value is set.
 
 import { site } from "@/content/site";
 
@@ -19,10 +20,17 @@ export interface ContactFieldCopy {
 }
 
 export interface DirectContactRow {
-  id: "correo" | "whatsapp" | "ciudad";
+  id: "correo" | "whatsapp" | "ciudad" | "instagram";
   label: string;
   display: string;
   href?: string;
+  /**
+   * Set only for a row whose `href` leaves this site entirely (a social
+   * profile, not `mailto:`/`wa.me`) — the page opens it in a new tab with
+   * `rel="noopener noreferrer"`, the same rule `Button`'s `external` prop
+   * already enforces elsewhere.
+   */
+  external?: boolean;
 }
 
 export interface ContactCopy {
@@ -82,6 +90,15 @@ const directContactRows: Array<DirectContactRow | null> = [
   // Ciudad has no "unresolved" state worth hiding a row for — it always
   // renders, via `cityDisplay`'s own sentence-variant fallback.
   { id: "ciudad" as const, label: "Ciudad", display: cityDisplay },
+  site.contact.instagram
+    ? {
+        id: "instagram" as const,
+        label: "Instagram",
+        display: `@${site.contact.instagram}`,
+        href: `https://www.instagram.com/${site.contact.instagram}/`,
+        external: true,
+      }
+    : null,
 ];
 
 // Fixed error microcopy (spec `contact-messaging`: "Errors never surfaced

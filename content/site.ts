@@ -106,8 +106,8 @@ export const site: SiteContent = {
      * never print this raw string to the page.
      */
     whatsapp: "+573217915232",
-    /** No Instagram account exists yet, so every link to it stays hidden. */
-    instagram: null,
+    /** Confirmed by Diego for this work unit — the account exists and links now render. */
+    instagram: "pedroagudelo0612",
   },
   stats: {
     /** Approximate, confirmed by the family: drawing since about age 12. */
@@ -143,8 +143,7 @@ export const site: SiteContent = {
     paperType: "de los blocks de dibujo",
     drawingDuration: "entre uno y dos días, según el detalle",
   },
-  // TODO: Diego to provide social links (deck section 0, item 6).
-  social: [],
+  social: [{ platform: "instagram", url: "https://www.instagram.com/pedroagudelo0612/" }],
   commerce: {
     // TODO: Diego to provide commission size, lead time, price and shipping
     // coverage (deck section 4.5, Bloque 2) before activating `flags.commerce`.

@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { ROUTES } from "@/lib/routes";
 import { Container } from "@/components/layout/Container";
-import { site } from "@/content/site";
+import { site, type SocialLink } from "@/content/site";
+
+const SOCIAL_LABELS: Record<SocialLink["platform"], string> = {
+  instagram: "Instagram",
+  whatsapp: "WhatsApp",
+  facebook: "Facebook",
+  x: "X",
+};
 
 /**
  * Deck section 5 footer. `site.city` and `site.social` are nullable, so
@@ -42,8 +49,18 @@ export function SiteFooter() {
           <ul className="flex flex-wrap gap-4 text-sm">
             {site.social.map((link) => (
               <li key={link.platform}>
-                <a href={link.url} className="hover:text-accent-bright">
-                  {link.platform}
+                {/*
+                  Every `site.social` entry is, by definition, a profile on a
+                  platform this site does not own — always a new tab, same
+                  rationale as `Button`'s own `external` branch.
+                */}
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-accent-bright"
+                >
+                  {SOCIAL_LABELS[link.platform]}
                 </a>
               </li>
             ))}

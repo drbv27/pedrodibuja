@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/Button";
 import { InfoList } from "@/components/ui/InfoList";
 import { ShareControls } from "@/components/ui/ShareControls";
 import { GatedBlock } from "@/components/flags/GatedBlock";
+import { MediaSlot } from "@/components/media/MediaSlot";
 import { apoya } from "@/content/copy/apoya";
+import { IMAGE_SLOTS } from "@/content/images";
 import { buildRouteMetadata } from "@/lib/seo";
 
 export const metadata = buildRouteMetadata("apoya");
@@ -25,12 +27,17 @@ export default function ApoyaPage() {
     <>
       {/* Encabezado */}
       <Section surface="paper" className="pt-12 md:pt-20">
-        <h1 className="font-[family-name:var(--font-display)] text-display text-ink">
-          {apoya.encabezado.heading}
-        </h1>
-        <p className="mt-6 max-w-prose text-lg text-ink-muted">
-          {apoya.encabezado.bajada}
-        </p>
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <div className="flex flex-col gap-6">
+            <h1 className="font-[family-name:var(--font-display)] text-display text-ink">
+              {apoya.encabezado.heading}
+            </h1>
+            <p className="max-w-prose text-lg text-ink-muted">
+              {apoya.encabezado.bajada}
+            </p>
+          </div>
+          <MediaSlot slot={IMAGE_SLOTS["apoya-portrait"]} className="mx-auto max-w-sm" />
+        </div>
       </Section>
 
       {/* Bloque 1a · Mira su obra y compártela */}
