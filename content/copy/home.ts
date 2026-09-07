@@ -106,7 +106,7 @@ export const home: HomeCopy = {
   },
   quote: {
     text: "Cuando termina un dibujo, lo levanta y busca tus ojos. Ahí está diciendo: mira lo que hice.",
-    attribution: "Diego, hermano de Pedro",
+    attribution: "Yamile, hermana de Pedro",
   },
   whyThisSite: {
     heading: "Por qué hicimos este sitio",

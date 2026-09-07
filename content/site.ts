@@ -45,8 +45,7 @@ export interface SiteContent {
 
 export const site: SiteContent = {
   artist: { firstName: "Pedro", lastName: "Agudelo", age: 37 },
-  // TODO: Diego to provide city of residence (deck section 0, item 2).
-  city: null,
+  city: "Medellín",
   contact: {
     // TODO: Diego to provide contact email (deck section 0, item 5).
     email: null,
