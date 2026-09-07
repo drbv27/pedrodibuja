@@ -56,18 +56,21 @@ export const site: SiteContent = {
   artist: { firstName: "Pedro", lastName: "Agudelo", age: 37 },
   city: "Medellín",
   contact: {
-    // TODO: Diego to provide contact email (deck section 0, item 5).
-    email: null,
-    // TODO: Diego to provide WhatsApp number (deck section 0, item 5).
-    whatsapp: null,
-    // TODO: Diego to provide Instagram handle/link (deck section 0, item 6).
+    email: "pedro.a.dibuja@gmail.com",
+    /**
+     * Stored in E.164 so it can be used directly as a `wa.me` target
+     * (`https://wa.me/573217915232`). Render a formatted version for display;
+     * never print this raw string to the page.
+     */
+    whatsapp: "+573217915232",
+    /** No Instagram account exists yet, so every link to it stays hidden. */
     instagram: null,
   },
   stats: {
-    // TODO: Diego to provide years drawing (deck section 0, item 3).
-    yearsDrawing: null,
-    // TODO: Diego to provide approximate drawing count (deck section 0, item 4).
-    drawingCount: null,
+    /** Approximate, confirmed by the family: drawing since about age 12. */
+    yearsDrawing: 25,
+    /** Approximate, confirmed by the family. */
+    drawingCount: 300,
   },
   family: {
     // TODO: Diego to provide the family members' names Pedro is especially
