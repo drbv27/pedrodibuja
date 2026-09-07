@@ -44,7 +44,7 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
   "home-featured-1": {
     id: "home-featured-1",
     ratio: "1/1",
-    tip: 4,
+    tip: 5,
     alt: "Dibujo a grafito de un carro clásico, hecho a mano por Pedro.",
     caption: "Uno de los últimos dibujos de Pedro, a grafito.",
     src: null,
@@ -52,7 +52,7 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
   "home-featured-2": {
     id: "home-featured-2",
     ratio: "1/1",
-    tip: 4,
+    tip: 5,
     alt: "Dibujo a lápices de color de un carro deportivo, hecho a mano por Pedro.",
     caption: "Uno de los últimos dibujos de Pedro, a color.",
     src: null,
@@ -60,7 +60,7 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
   "home-featured-3": {
     id: "home-featured-3",
     ratio: "1/1",
-    tip: 4,
+    tip: 5,
     alt: "Dibujo a grafito de una camioneta, hecho a mano por Pedro.",
     caption: "Uno de los últimos dibujos de Pedro, a grafito.",
     src: null,
@@ -68,7 +68,7 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
   "home-featured-4": {
     id: "home-featured-4",
     ratio: "1/1",
-    tip: 4,
+    tip: 5,
     alt: "Dibujo a lápices de color de un carro clásico, hecho a mano por Pedro.",
     caption: "Uno de los últimos dibujos de Pedro, a color.",
     src: null,
@@ -76,7 +76,7 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
   "home-featured-5": {
     id: "home-featured-5",
     ratio: "1/1",
-    tip: 4,
+    tip: 5,
     alt: "Dibujo a grafito de un carro deportivo, hecho a mano por Pedro.",
     caption: "Uno de los últimos dibujos de Pedro, a grafito.",
     src: null,
@@ -84,7 +84,7 @@ export const IMAGE_SLOTS: Record<ImageSlotId, ImageSlot> = {
   "home-featured-6": {
     id: "home-featured-6",
     ratio: "1/1",
-    tip: 4,
+    tip: 5,
     alt: "Dibujo a lápices de color de una camioneta, hecho a mano por Pedro.",
     caption: "Uno de los últimos dibujos de Pedro, a color.",
     src: null,
