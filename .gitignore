@@ -30,5 +30,5 @@ yarn-error.log*
 .idea/
 
 # internal working docs, not part of the published site
-/contenido-pedro-dibuja.md
+/contenido-pedro-dibuja*.md
 /.atl/
