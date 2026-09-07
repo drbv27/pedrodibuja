@@ -1,18 +1,16 @@
-// Pure per-route content for the shared OG image renderer. Reuses each
-// route's own H1 (from `content/copy/*.ts`) and SEO description
-// (`lib/seo.ts` `ROUTE_METADATA`) so a route's shared-link headline and
-// subtitle cannot drift from what the page itself already says — with one
-// explicit, reported exception: home.
+// Pure per-route content for the shared OG image renderer (WU10 layout,
+// Engram id 514: logo centred, one supporting line below it, safe zone).
 //
-// Home's `title` is Diego's poetic hero line, "Pedro no habla. Pedro
-// dibuja." — distinct from both the page's own merged H1 ("Pedro no habla.
-// Pedro dibuja carros.") and the SEO title string. This is not deck 3.4
-// copy; it is the deck's own dedicated section 5 "Textos para compartir
-// (Open Graph)" line, which exists only for "/" — spec `social-preview-
-// images`: "Home OG image renders the poetic line".
+// Every route reuses its own H1 (`content/copy/*.ts`) as the supporting
+// line below the logo, so a shared inner-page image cannot drift from
+// what the page itself already says — with one explicit, reported
+// exception: home. Home's supporting line is the deck's own dedicated
+// section 5 "Textos para compartir (Open Graph)" line, distinct from both
+// the page's merged H1 and the SEO description, and its `alt` keeps
+// referencing Diego's poetic hero line ("Pedro no habla. Pedro dibuja."),
+// unchanged from the pre-WU10 renderer.
 
 import type { RouteId } from "@/lib/routes";
-import { ROUTE_METADATA } from "@/lib/seo";
 import { suHistoria } from "@/content/copy/su-historia";
 import { galeria } from "@/content/copy/galeria";
 import { comoDibuja } from "@/content/copy/como-dibuja";
@@ -20,57 +18,54 @@ import { apoya } from "@/content/copy/apoya";
 import { contacto } from "@/content/copy/contacto";
 
 export interface OgContent {
-  /** Small brand label rendered above the headline on every image. */
-  kicker: string;
-  /** The large headline — the route's own H1, except home (see above). */
-  title: string;
-  /** Supporting line — the route's SEO description, except home. */
-  subtitle: string;
+  /** Supporting line rendered below the logo. Home's dedicated deck line;
+   * every other route's own H1 heading. */
+  supportingLine: string;
+  /** `"home"` renders the larger logo with the line in the body font
+   * (Inter), muted ink. `"inner"` renders a smaller logo — to leave room
+   * for a longer headline — with the line in the display font (Bricolage
+   * Grotesque), full ink, so it still reads as a heading. */
+  variant: "home" | "inner";
   /** `alt` export value for the route's `opengraph-image.tsx`. */
   alt: string;
 }
 
 const BRAND_KICKER = "Pedro Dibuja";
+const HOME_HERO_LINE = "Pedro no habla. Pedro dibuja.";
 
-function altFor(title: string): string {
-  return `${BRAND_KICKER} — ${title}`;
+function altFor(headline: string): string {
+  return `${BRAND_KICKER} — ${headline}`;
 }
 
 export const OG_CONTENT: Record<RouteId, OgContent> = {
   home: {
-    kicker: BRAND_KICKER,
-    title: "Pedro no habla. Pedro dibuja.",
-    subtitle: "Tiene 37 años y dibuja carros todos los días. Mira su obra.",
-    alt: altFor("Pedro no habla. Pedro dibuja."),
+    supportingLine: "Tiene 37 años y dibuja carros todos los días.",
+    variant: "home",
+    alt: altFor(HOME_HERO_LINE),
   },
   "su-historia": {
-    kicker: BRAND_KICKER,
-    title: suHistoria.encabezado.heading,
-    subtitle: ROUTE_METADATA["su-historia"].description,
+    supportingLine: suHistoria.encabezado.heading,
+    variant: "inner",
     alt: altFor(suHistoria.encabezado.heading),
   },
   galeria: {
-    kicker: BRAND_KICKER,
-    title: galeria.encabezado.heading,
-    subtitle: ROUTE_METADATA.galeria.description,
+    supportingLine: galeria.encabezado.heading,
+    variant: "inner",
     alt: altFor(galeria.encabezado.heading),
   },
   "como-dibuja": {
-    kicker: BRAND_KICKER,
-    title: comoDibuja.encabezado.heading,
-    subtitle: ROUTE_METADATA["como-dibuja"].description,
+    supportingLine: comoDibuja.encabezado.heading,
+    variant: "inner",
     alt: altFor(comoDibuja.encabezado.heading),
   },
   apoya: {
-    kicker: BRAND_KICKER,
-    title: apoya.encabezado.heading,
-    subtitle: ROUTE_METADATA.apoya.description,
+    supportingLine: apoya.encabezado.heading,
+    variant: "inner",
     alt: altFor(apoya.encabezado.heading),
   },
   contacto: {
-    kicker: BRAND_KICKER,
-    title: contacto.encabezado.heading,
-    subtitle: ROUTE_METADATA.contacto.description,
+    supportingLine: contacto.encabezado.heading,
+    variant: "inner",
     alt: altFor(contacto.encabezado.heading),
   },
 };
